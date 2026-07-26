@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import type { MessageMutation } from "../types";
 import { FileInput } from "./FileInput";
 
@@ -43,7 +44,7 @@ export const MessageForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
     <Box
       component="form"
       onSubmit={submitFormHandler}
-      sx={{ mb: 4, display: "flex", flexDirection: "column", gap: 2 }}
+      sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}
     >
       <TextField
         label="Author"
@@ -52,6 +53,8 @@ export const MessageForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         onChange={inputChangeHandler}
         fullWidth
         placeholder="Anonymous"
+        variant="outlined"
+        size="small"
       />
       <TextField
         label="Message"
@@ -62,16 +65,32 @@ export const MessageForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
         multiline
         rows={3}
         fullWidth
+        placeholder="Type your message here..."
+        variant="outlined"
       />
-      <FileInput onChange={fileChangeHandler} name="image" label="Image" />
+      <FileInput
+        onChange={fileChangeHandler}
+        name="image"
+        label="Attach image (optional)"
+      />
+
       <Button
         type="submit"
         variant="contained"
-        color="primary"
         disabled={isLoading}
-        sx={{ alignSelf: "flex-start" }}
+        endIcon={<SendIcon />}
+        sx={{
+          alignSelf: "flex-start",
+          px: 3,
+          py: 1,
+          borderRadius: 2,
+          textTransform: "none",
+          fontWeight: "bold",
+          backgroundColor: "#3182ce",
+          "&:hover": { backgroundColor: "#2b6cb0" },
+        }}
       >
-        Send
+        {isLoading ? "Posting..." : "Post Message"}
       </Button>
     </Box>
   );
